@@ -7,5 +7,6 @@ import com.ruby.OnlineFoodApp.entity.Customer;
 
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Integer>{
-
+@Query("select e from Customer e where e.fullName like %:fullName%")
+	public Customer findbyName( @Param("fullName") String fullName);
 }
