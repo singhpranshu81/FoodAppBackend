@@ -58,5 +58,30 @@ public class CustomerServiceController {
 		 Customer customer = customerService.viewCustomer(customerId);
 		 return new ResponseEntity<Customer>(customer, HttpStatus.OK);
 	}
+@GetMapping("/login/{username}/{pwd}/{role}")
+	public ResponseEntity<?> login(@PathVariable String username, @PathVariable String pwd, @PathVariable String role) throws CustomerException {
+		Customer susr = new Customer();
+		susr.setFullName(username);
+		susr.setPassword(pwd);
+		susr.setRole(role);
+		System.out.println("********* " + susr);
 
+		// Use findByUsername to retrieve the user wrapped in Optional
+		Customer foundUser = customerService.getCustomerbyName(username);
+
+		// Check if the user is present in Optional
+		if (foundUser !=null) {
+		
+			System.out.println("Actual user " + foundUser);
+			// Check if the password and role match
+			if (foundUser.getPassword().equals(pwd) && foundUser.getRole().equals(role)) {
+
+				return ResponseEntity.ok(foundUser); // Return the found user if credentials are valid
+			} else {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentialssss");
+			}
+		} else {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials.d.d.d");
+		}
+	}
 }
