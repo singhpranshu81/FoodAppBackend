@@ -65,5 +65,8 @@ public class CustomerServiceImpl implements CustomerService {
 			throw new CustomerException("No Customer found with ID: "+customerId);
 		}
 	}
-
+	@Override
+	public Customer getCustomerbyName(String name) throws CustomerException {
+		return customerRepository.findbyName(name);
+	}
 }
