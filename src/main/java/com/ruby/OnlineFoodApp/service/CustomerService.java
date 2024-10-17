@@ -12,5 +12,5 @@ public interface CustomerService {
 	public Customer removeCustomerById(Integer customerId)throws CustomerException;
 	
 	public Customer viewCustomer(Integer customerId)throws CustomerException;
-
+public Customer getCustomerbyName(String name)throws CustomerException;
 }
